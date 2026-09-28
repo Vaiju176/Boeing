@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Stage 1: Email Ingestion
 
 A small, local Python project that models an email-ingestion stage backed by a
@@ -94,3 +95,6 @@ Install pytest if it is not already available, then run:
 ```bash
 python -m pytest
 ```
+=======
+# Boeing
+>>>>>>> a18cde190b936d6dbdb1b96d6505c92fbc691f59
