@@ -1,0 +1,24 @@
+[
+  {
+    "message_id": "MSG-001",
+    "subject": "Welcome to the team",
+    "sender": "people@example.com",
+    "received_at": "2026-09-28T08:00:00Z",
+    "body": "Your account is ready. Welcome aboard!"
+  },
+  {
+    "message_id": "MSG-002",
+    "subject": "Project kickoff",
+    "sender": "project@example.com",
+    "received_at": "2026-09-28T08:15:00Z",
+    "body": "The project kickoff is scheduled for tomorrow."
+  },
+  {
+    "message_id": "MSG003",
+    "conversation_id": "CONV003",
+    "subject": "New Payment Query",
+    "sender": "supplier3@example.com",
+    "received_at": "2026-09-28T09:15:00Z",
+    "body": "Check invoice INV9999"
+  }
+]
