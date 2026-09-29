@@ -2,12 +2,12 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from repositories.checkpoint_repository import CheckpointRepository
-from repositories.email_repository import EmailRepository
-from repositories.mock_graph_repository import MockGraphRepository
-from repositories.step_function_repository import StepFunctionRepository
-from services.ingestion_service import IngestionService
-from services.step_function_service import MockStepFunctionService
+from stage1_email_ingestion.repositories.checkpoint_repository import CheckpointRepository
+from stage1_email_ingestion.repositories.email_repository import EmailRepository
+from stage1_email_ingestion.repositories.mock_graph_repository import MockGraphRepository
+from stage1_email_ingestion.repositories.step_function_repository import StepFunctionRepository
+from stage1_email_ingestion.services.ingestion_service import IngestionService
+from stage1_email_ingestion.services.step_function_service import MockStepFunctionService
 
 
 PROJECT_DIR = Path(__file__).resolve().parent

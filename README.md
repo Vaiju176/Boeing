@@ -1,100 +1,75 @@
-<<<<<<< HEAD
-# Stage 1: Email Ingestion
+# Boeing Payment Investigation Prototype
 
-A small, local Python project that models an email-ingestion stage backed by a
-Microsoft Graph-like mailbox and a mock Step Functions handoff. It uses only
-the Python standard library at runtime.
-
-## Architecture
+This repository contains two separate workstreams. Each has its own source,
+fixtures, tests, and run instructions.
 
 ```text
-mock_mailbox.json
-       |
-       v
-MockGraphRepository ---> IngestionService ---> EmailRepository
-                                |                    |
-                                v                    v
-                       MockStepFunctionService   emails.json
-                                |                    |
-                                v                    v
-                         executions.json     CheckpointRepository
-                                                   |
-                                                   v
-                                             checkpoint.json
-```
-
-- **Repositories** isolate JSON-backed mailbox, email, execution, and checkpoint
-  persistence from application logic.
-- **Services** coordinate ingestion and simulate starting a Step Functions
-  execution for each message.
-- **Idempotency** is keyed by `message_id`. Re-reading a message does not create
-  another stored email or mock execution.
-- **Checkpointing** advances only after email persistence and handoff succeed.
-  If an operation fails, the next run can retry the uncheckpointed message.
-- JSON files are written atomically using a temporary file and `os.replace`.
-
-The mock Graph repository uses an integer offset as a simple delta-sync token.
-This models incremental synchronization for the fixed, append-only local
-mailbox; it is not a replacement for Microsoft Graph delta links.
-
-## Project layout
-
-```text
-stage1_email_ingestion/
-├── .gitignore
+Boeing/
+├── stage1_email_ingestion/   # Stage 1 mailbox ingestion prototype
+│   ├── handler.py
+│   ├── models.py
+│   ├── mock_mailbox.json
+│   ├── repositories/
+│   ├── services/
+│   ├── runtime/              # Local generated state
+│   └── tests/
+├── task2_payment_agent/      # Task 2 Strands + MCP prototype
+│   ├── agents/payment_agent/
+│   ├── payment_mcp/
+│   ├── requirements-agent.txt
+│   └── tests/
 ├── pyproject.toml
-├── requirements-dev.txt
-├── handler.py
-├── mock_mailbox.json
-├── models.py
-├── repositories/
-│   ├── __init__.py
-│   ├── checkpoint_repository.py
-│   ├── email_repository.py
-│   ├── json_file.py
-│   ├── mock_graph_repository.py
-│   └── step_function_repository.py
-├── services/
-│   ├── __init__.py
-│   ├── ingestion_service.py
-│   └── step_function_service.py
-└── tests/
-    ├── conftest.py
-    ├── test_handler.py
-    ├── test_ingestion_service.py
-    └── test_repositories.py
+└── requirements-dev.txt
 ```
 
-## Run
+## Stage 1: Email ingestion
 
-Run one ingestion batch from the project directory:
+This is a local prototype using a Graph-like JSON mailbox, JSON persistence,
+and a mock Step Functions handoff. It is not connected to Microsoft Graph or
+AWS services.
+
+From the repository root:
 
 ```bash
-python handler.py
+python -m stage1_email_ingestion.handler
 ```
 
-The first run stores the two sample emails and records two mock executions.
-Later runs report no new messages unless the mailbox is appended. Runtime state
-is written to `runtime/`.
+Generated local state is written to `stage1_email_ingestion/runtime/`.
 
-The handler can also be called as a Lambda-style entry point:
+## Task 2: Payment investigation agent
 
-```python
-from handler import lambda_handler
+This prototype uses Strands with deterministic mock payment tools and provides
+an MCP server exposing those tools. It is not connected to S/4, Ariba, AWS, or
+AgentCore yet.
 
-result = lambda_handler({"batch_size": 10}, None)
+Install the Task 2 dependencies:
+
+```bash
+python -m pip install -r task2_payment_agent/requirements-agent.txt
 ```
 
-An event may optionally provide `mailbox_path` and `runtime_dir` to use
-alternate local files.
+Run the agent from the repository root:
 
-## Test
+```bash
+python -m task2_payment_agent.agents.payment_agent.agent
+```
 
-Install pytest if it is not already available, then run:
+Run the MCP server over stdio:
+
+```bash
+python -m task2_payment_agent.payment_mcp.server
+```
+
+The `payment_mcp` directory name avoids shadowing the official Python `mcp`
+SDK. The local fixtures are in `task2_payment_agent/agents/payment_agent/tools.py`;
+replace their implementations with approved API calls when S/4 or Ariba
+contracts are available. AgentCore deployment is a later step.
+
+## Tests
+
+Install pytest if needed, then run both workstreams' tests from the repository
+root:
 
 ```bash
 python -m pytest
 ```
-=======
-# Boeing
->>>>>>> a18cde190b936d6dbdb1b96d6505c92fbc691f59

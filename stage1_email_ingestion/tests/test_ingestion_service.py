@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from repositories.checkpoint_repository import CheckpointRepository
+from stage1_email_ingestion.repositories.checkpoint_repository import CheckpointRepository
 
 
 def test_sync_persists_messages_handoffs_and_checkpoint(ingestion_service, tmp_path):

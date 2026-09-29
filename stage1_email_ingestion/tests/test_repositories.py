@@ -1,7 +1,7 @@
-from models import EmailMessage
-from repositories.email_repository import EmailRepository
-from repositories.step_function_repository import StepFunctionRepository
-from services.step_function_service import MockStepFunctionService
+from stage1_email_ingestion.models import EmailMessage
+from stage1_email_ingestion.repositories.email_repository import EmailRepository
+from stage1_email_ingestion.repositories.step_function_repository import StepFunctionRepository
+from stage1_email_ingestion.services.step_function_service import MockStepFunctionService
 
 
 def test_email_persistence_is_idempotent_by_message_id(tmp_path):

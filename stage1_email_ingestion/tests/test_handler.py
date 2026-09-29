@@ -1,6 +1,6 @@
 import pytest
 
-from handler import lambda_handler
+from stage1_email_ingestion.handler import lambda_handler
 
 
 def test_handler_accepts_paths_from_event(mailbox_path, tmp_path):

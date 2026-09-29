@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Dict, List
 
-from repositories.json_file import JsonFile
+from stage1_email_ingestion.repositories.json_file import JsonFile
 
 
 class StepFunctionRepository:

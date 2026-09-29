@@ -1,4 +1,4 @@
-from repositories.step_function_repository import StepFunctionRepository
+from stage1_email_ingestion.repositories.step_function_repository import StepFunctionRepository
 
 
 class MockStepFunctionService:

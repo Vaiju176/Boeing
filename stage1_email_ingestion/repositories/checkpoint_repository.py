@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from repositories.json_file import JsonFile
+from stage1_email_ingestion.repositories.json_file import JsonFile
 
 
 class CheckpointRepository:

@@ -1,9 +1,9 @@
 from typing import Any, Dict
 
-from repositories.checkpoint_repository import CheckpointRepository
-from repositories.email_repository import EmailRepository
-from repositories.mock_graph_repository import MockGraphRepository
-from services.step_function_service import MockStepFunctionService
+from stage1_email_ingestion.repositories.checkpoint_repository import CheckpointRepository
+from stage1_email_ingestion.repositories.email_repository import EmailRepository
+from stage1_email_ingestion.repositories.mock_graph_repository import MockGraphRepository
+from stage1_email_ingestion.services.step_function_service import MockStepFunctionService
 
 
 class IngestionService:

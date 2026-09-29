@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from handler import build_ingestion_service
+from stage1_email_ingestion.handler import build_ingestion_service
 
 
 @pytest.fixture
